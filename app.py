@@ -1,20 +1,11 @@
 from flask import Flask, render_template
-
 app = Flask(__name__)
+
+# Flask will only be used for POST requests on port 8080
 
 @app.route("/")
 def index():
     return render_template("home.html")
 
-# @app.route('/user/<name>')
-# def user(name):
-#   return render_template('user.html', name=name)
-
-@app.route("/countdowns")
-def countdown():
-    return render_template("countdown.html")
-
-@app.route("/todo")
-def todo():
-    # Get items from text file on server and add them to template variables
-    return render_template("todo.html")
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8080)
