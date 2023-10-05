@@ -12,7 +12,7 @@ function weather(city) {
             const weatherElement = document.getElementById("weather");
 
             const locationElement = document.getElementById("weatherTitle");
-            locationElement.textContent = `Weather For ${city}:`;
+            locationElement.innerHTML = `Weather For ${city}:`;
 
             const favicon = data.current.condition.icon;
             const faviconElement = document.createElement("img");
@@ -20,23 +20,33 @@ function weather(city) {
             faviconElement.alt = "Weather Icon";
             weatherElement.appendChild(faviconElement);
 
-
             const description = data.current.condition.text;
             const descriptionElement = document.createElement("p");
-            descriptionElement.textContent = description;
+            descriptionElement.innerHTML = description;
             weatherElement.appendChild(descriptionElement);
 
             const temp = data.current.temp_c;
+            const tempFeelsLike = data.current.feelslike_c;
             const tempElement = document.createElement("p");
-            tempElement.textContent = `Temperature: ${temp}°C`;
+            tempElement.innerHTML = `Temperature: ${temp}°C<br>Feels Like: ${tempFeelsLike}°C`;
             weatherElement.appendChild(tempElement);
 
             const wind = data.current.wind_kph;
             const windDir = data.current.wind_degree;
+            const windGust = data.current.gust_kph;
             const windElement = document.createElement("p");
-            windElement.textContent = `Wind: ${wind}kph ${windDir}°`;
+            windElement.innerHTML = `Wind Speed: ${wind}kph<br>Direction: ${windDir}°<br>Gusts: ${windGust}kph`;
             weatherElement.appendChild(windElement);
 
+            const rain = data.current.precip_mm;
+            const rainElement = document.createElement("p");
+            rainElement.innerHTML = `Precipitaion: ${rain}mm`;
+            weatherElement.appendChild(rainElement);
+
+            const cloud = data.current.cloud;
+            const cloudElement = document.createElement("p");
+            cloudElement.innerHTML = `Cloud Cover: ${cloud}%`;
+            weatherElement.appendChild(cloudElement);
         })
         .catch(error => {
             console.error("Error fetching weather data:", error);
