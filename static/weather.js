@@ -47,6 +47,21 @@ function weather(city) {
             const cloudElement = document.createElement("p");
             cloudElement.innerHTML = `Cloud Cover: ${cloud}%`;
             weatherElement.appendChild(cloudElement);
+
+            const humid = data.current.humidity;
+            const humidElement = document.createElement("p");
+            humidElement.innerHTML = `Humidity: ${humid}%`;
+            weatherElement.appendChild(humidElement);
+
+            const vis = data.current.vis_km;
+            const visElement = document.createElement("p");
+            visElement.innerHTML = `Visibility: ${vis}km`;
+            weatherElement.appendChild(visElement);
+
+            const uv = data.current.uv;
+            const uvElement = document.createElement("p");
+            uvElement.innerHTML = `UV Index: ${uv}`;
+            weatherElement.appendChild(uvElement);
         })
         .catch(error => {
             console.error("Error fetching weather data:", error);
