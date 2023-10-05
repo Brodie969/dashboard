@@ -15,9 +15,11 @@ function weather(city) {
             locationElement.textContent = `Weather For ${city}:`;
 
             const favicon = data.current.condition.icon;
-            const faviconElement = document.createElement("p"); // Because I don't know how to set src and stuff yet
-            faviconElement.innerHTML = `<img src="${favicon}" alt="Weather Icon"></img>`;
+            const faviconElement = document.createElement("img");
+            faviconElement.src = favicon;
+            faviconElement.alt = "Weather Icon";
             weatherElement.appendChild(faviconElement);
+
 
             const description = data.current.condition.text;
             const descriptionElement = document.createElement("p");
@@ -30,6 +32,10 @@ function weather(city) {
             weatherElement.appendChild(tempElement);
 
             const wind = data.current.wind_kph;
+            const windDir = data.current.wind_degree;
+            const windElement = document.createElement("p");
+            windElement.textContent = `Wind: ${wind}kph ${windDir}°`;
+            weatherElement.appendChild(windElement);
 
         })
         .catch(error => {
