@@ -3,8 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+config.js
+
 # C extensions
 *.so
+
+# API Key
+config.js
 
 # Distribution / packaging
 .Python
