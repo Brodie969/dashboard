@@ -26,6 +26,12 @@ function getReminders() {
     .then(text => {
         // Do something with the text content, for example, display it in a <pre> element
         console.log(text);
+        document.getElementById("reminders").textContent = text;
+
+        /* Here's how it will work:
+        Create a new div for each line
+        Then on each line, check where commas to separate date and title
+        Then place (in chrono order) each reminder in each div like: Title, Date, Days Until  */
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);

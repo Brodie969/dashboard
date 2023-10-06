@@ -15,9 +15,11 @@ function weather(city) {
             locationElement.innerHTML = `Weather For ${city}:`;
 
             const favicon = data.current.condition.icon;
-            const faviconElement = document.getElementById("favicon");
-            faviconElement.src = favicon;
-            faviconElement.alt = "Weather Icon";
+            const imgElement = document.getElementById("favicon");
+            const faviconElement = document.getElementById("favi");
+            imgElement.src = favicon;
+            imgElement.alt = "Weather Icon";
+            faviconElement.href = favicon
 
             const description = data.current.condition.text;
             const descriptionElement = document.createElement("p");
