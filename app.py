@@ -1,8 +1,6 @@
 from flask import Flask, render_template
 app = Flask(__name__)
 
-# Flask will only be used for POST requests on port 8080
-
 @app.route("/")
 def index():
     return render_template("home.html")
