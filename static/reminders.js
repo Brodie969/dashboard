@@ -96,6 +96,8 @@ del.addEventListener('input', function(event) {
     const child = reminderArray[value - 1];
     output.textContent = `Selected Reminder: ${child}`;
     console.log('Field value changed to:', value);
+
+    // Now I just have to send a POST to tell Python to delete it from the .txt file
 });
 
 getReminders();
