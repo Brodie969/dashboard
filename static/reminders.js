@@ -4,10 +4,7 @@ const formHead2 = document.getElementById("remindersTitle2");
 formHead2.textContent = "Select A Reminder To Delete:";
 const head = document.getElementById("remindersStatic");
 head.innerHTML = "Reminders:";
-
 const reminderArray = [];
-
-getReminders();
 
 function getReminders() {
     fetch("/data")
@@ -19,23 +16,21 @@ function getReminders() {
         })
         .then(text => {
             const lines = text.split("\n");
+            lines.pop(); // Remove the last whitespace
             const parent = document.getElementById("reminders");
             parent.innerHTML = "";
             reminderArray.length = 0; // Clear Array
-
             lines.forEach(line => {
                 const [title, date] = line.split(",");
-
                 const div = document.createElement("div");
                 const reminder = `${title.trim()} on ${date.trim()}`;
                 div.textContent = reminder;
                 parent.appendChild(div);
-
                 reminderArray.push(reminder);
             });
         })
         .catch(error => {
-            console.error("There was a problem with the fetch operation:", error); // Remove this in production
+            console.log("well an error occured");
         });
 }
 
@@ -126,3 +121,5 @@ del.addEventListener("submit", function(event) {
     clearForm();
     getReminders();
 });
+
+getReminders();
