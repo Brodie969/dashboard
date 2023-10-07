@@ -16,7 +16,20 @@ body {
 }
 
 #weather p {
-    border: 1px solid #ccc;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #ccc;
     padding: 10px;
     text-align: center;
+}
+
+button {
+    width: 100px; /* Adjust the width as per your design */
+    height: 40px; /* Adjust the height as per your design */
+    border: none;
+    transition: all 0.3s ease; /* Add a smooth transition effect */
+}
+  
+button:hover {
+    transform: scale(1.05); 
 }

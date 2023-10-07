@@ -61,9 +61,9 @@ function clearForm() {
 }
 
 const addFormElement = document.getElementById("remindersAdd");
-addFormElement.innerHTML = `<form id="create"><label for="name">Name:</label><input type="text" id="name" required><br><br><label for="date">Date:</label><input type="date" id="date" required><br><br><button type="submit">Submit</button></form>`;
+addFormElement.innerHTML = `<form id="create"><label for="name">Name:</label><input type="text" id="name" required><br><br><label for="date">Date:</label><input type="date" id="date" required><br><br><button type="submit">Add</button></form>`;
 const delFormElement = document.getElementById("remindersDel");
-delFormElement.innerHTML = `<form id="del"><label for="index">Select A Reminder To Delete:</label><input type="number" id="index" name="index" min="1" max="100"><p id="selected">Selected Reminder: None</p><button type="submit">Delete</button></form>`
+delFormElement.innerHTML = `<form id="del"><label for="index">Select A Reminder To Delete:</label><input type="number" id="index" name="index" min="1" max="100" required><p id="selected">Selected Reminder: None</p><button type="submit">Delete</button></form>`
 
 const form = document.getElementById("create");
 form.addEventListener("submit", function(event) {
