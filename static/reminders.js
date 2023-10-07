@@ -36,6 +36,17 @@ function getReminders() {
         });
 }
 
+function formatDate(inputDate) {
+    const dateNumbers = inputDate.split('-');
+    if (dateNumbers.length === 3) {
+      const year = dateNumbers[0];
+      const month = dateNumbers[1];
+      const day = dateNumbers[2];
+      const formattedDate = `${day}/${month}/${year}`;
+      return formattedDate;
+    }
+}  
+
 // Load Form
 const formElement = document.getElementById("remindersForm");
 formElement.innerHTML = `<form id="create"><label for="name">Name:</label><input type="text" id="name" required><br><br><label for="date">Date:</label><input type="date" id="date" required><br><br><button type="submit">Submit</button></form>`;
@@ -43,9 +54,11 @@ formElement.innerHTML = `<form id="create"><label for="name">Name:</label><input
 const form = document.getElementById("create");
 form.addEventListener("submit", function(event) {
     event.preventDefault(); // Prevents the form from submitting normally
-    const date = document.getElementById("date").value;
-    const name = document.getElementById("name").value;
-    alert("Working");
+    let date = document.getElementById("date").value;
+    let name = document.getElementById("name").value;
+    date = formatDate(date);
+    let reminder = `${name},${date}`;
+    alert(`Working: ${reminder}`);
 });
 
 getReminders();
