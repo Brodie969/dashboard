@@ -5,7 +5,7 @@ app = Flask(__name__)
 def index():
     return render_template("home.html")
 
-@app.route("/fetch")
+@app.route("/data")
 def fetch():
     return send_from_directory("data", "reminders.txt")
 

@@ -5,51 +5,36 @@ Python can take that raw data and place it in the file, in chronological order
 
 There will also be a delete button next to every reminder/countdown to be handled by Javscript */
 
-// I will refactor everything to countdown later (maybe)
-
-// Change Title And Remove "Loading"
 const formHead = document.getElementById("remindersFormStatic");
 formHead.innerHTML = `<h2>Add A Reminder:</h2>`;
-
 const head = document.getElementById("remindersStatic");
 head.innerHTML = `<h2>Reminders:</h2>`;
 
-// This is where the txt will be fetched and added to #reminders
 function getReminders() {
-    fetch("/fetch")
+    fetch("/data")
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error("Network response was not ok");
             }
-            return response.text(); // Get the text content of the file
+            return response.text();
         })
         .then(text => {
-            // Do something with the text content, for example, display it in a <pre> element
-            console.log(text);
-            const lines = text.split('\n');
+            const lines = text.split("\n");
             const parent = document.getElementById("reminders");
 
-            // Loop through each line
             lines.forEach(line => {
-                // Split each line into title and date using the comma as a delimiter
-                const [title, date] = line.split(',');
+                const [title, date] = line.split(",");
                 console.log(`Title: ${title.trim()}, Date: ${date.trim()}`);
 
-                const div = document.createElement('div');
+                const div = document.createElement("div");
                 div.textContent = `${title.trim()} on ${date.trim()}`;
                 parent.appendChild(div);
-
-                /* Here's how it will work: Create a new div for each line
-                Then, for each line, check where commas to separate date and title
-                Then place (in chronological order) each reminder in each div like: Title, Date, Days Until */
             });
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
+            console.error("There was a problem with the fetch operation:", error);
         });
 }
-
-
 
 // Load Form
 const formElement = document.getElementById("remindersForm");
