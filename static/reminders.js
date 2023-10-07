@@ -17,26 +17,38 @@ head.innerHTML = `<h2>Reminders:</h2>`;
 // This is where the txt will be fetched and added to #reminders
 function getReminders() {
     fetch("/fetch")
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text(); // Get the text content of the file
-    })
-    .then(text => {
-        // Do something with the text content, for example, display it in a <pre> element
-        console.log(text);
-        document.getElementById("reminders").textContent = text;
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Get the text content of the file
+        })
+        .then(text => {
+            // Do something with the text content, for example, display it in a <pre> element
+            console.log(text);
+            const lines = text.split('\n');
+            const parent = document.getElementById("reminders");
 
-        /* Here's how it will work:
-        Create a new div for each line
-        Then on each line, check where commas to separate date and title
-        Then place (in chrono order) each reminder in each div like: Title, Date, Days Until  */
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
+            // Loop through each line
+            lines.forEach(line => {
+                // Split each line into title and date using the comma as a delimiter
+                const [title, date] = line.split(',');
+                console.log(`Title: ${title.trim()}, Date: ${date.trim()}`);
+
+                const div = document.createElement('div');
+                div.textContent = `${title.trim()} on ${date.trim()}`;
+                parent.appendChild(div);
+
+                /* Here's how it will work: Create a new div for each line
+                Then, for each line, check where commas to separate date and title
+                Then place (in chronological order) each reminder in each div like: Title, Date, Days Until */
+            });
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
 }
+
 
 
 // Load Form
