@@ -26,7 +26,6 @@ def delete():
     index = data.get('index')
     if index:
         index = int(index)
-        print(index)
         lines = []
         with open("data/reminders.txt", "r") as file:
             lines = file.readlines()

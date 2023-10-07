@@ -102,7 +102,6 @@ indexInput.addEventListener('input', function(event) {
     const value = event.target.value;
     const child = reminderArray[value - 1];
     output.textContent = `Selected Reminder: ${child}`;
-    console.log('Field value changed to:', value);
 });
 
 const del = document.getElementById("del"); // Form's ID
@@ -110,7 +109,6 @@ del.addEventListener("submit", function(event) {
     event.preventDefault();
     const index = document.getElementById("index").value;
     const indexData = { index: index }; // Create JSON structure
-    console.log(indexData);
     fetch('/delete', {
         method: 'POST',
         headers: {
@@ -120,7 +118,7 @@ del.addEventListener("submit", function(event) {
     })
     .then(response => response.text())
     .then(result => {
-        console.log(result); // Logging the response from Flask
+        console.log(result);
     })
     .catch(error => {
         console.error('Error:', error);
