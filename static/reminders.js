@@ -5,10 +5,12 @@ Python can take that raw data and place it in the file, in chronological order
 
 There will also be a delete button next to every reminder/countdown to be handled by Javscript */
 
-const formHead = document.getElementById("remindersFormStatic");
-formHead.innerHTML = `<h2>Add A Reminder:</h2>`;
+const formHead = document.getElementById("remindersTitle");
+formHead.textContent = "Add A Reminder:";
+const formHead2 = document.getElementById("remindersTitle2");
+formHead2.textContent = "Select A Reminder To Delete:";
 const head = document.getElementById("remindersStatic");
-head.innerHTML = `<h2>Reminders:</h2>`;
+head.innerHTML = "Reminders:";
 
 function getReminders() {
     fetch("/data")
@@ -21,6 +23,7 @@ function getReminders() {
         .then(text => {
             const lines = text.split("\n");
             const parent = document.getElementById("reminders");
+            parent.innerHTML = "";
 
             lines.forEach(line => {
                 const [title, date] = line.split(",");
@@ -47,8 +50,16 @@ function formatDate(inputDate) {
     }
 }  
 
+function clearForm() {
+    let form = document.getElementById("create");
+    for (let i = 0; i < form.elements.length; i++) {
+        let field = form.elements[i];
+        field.value = "";
+    }
+}
+
 // Load Form
-const formElement = document.getElementById("remindersForm");
+const formElement = document.getElementById("remindersAdd");
 formElement.innerHTML = `<form id="create"><label for="name">Name:</label><input type="text" id="name" required><br><br><label for="date">Date:</label><input type="date" id="date" required><br><br><button type="submit">Submit</button></form>`;
 
 const form = document.getElementById("create");
@@ -74,6 +85,8 @@ form.addEventListener("submit", function(event) {
     .catch(error => {
         console.error('Error:', error);
     });
+    getReminders();
+    clearForm();
 });
 
 getReminders();
