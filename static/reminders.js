@@ -7,6 +7,8 @@ head.innerHTML = "Reminders:";
 
 const reminderArray = [];
 
+getReminders();
+
 function getReminders() {
     fetch("/data")
         .then(response => {
@@ -33,7 +35,7 @@ function getReminders() {
             });
         })
         .catch(error => {
-            console.error("There was a problem with the fetch operation:", error);
+            console.error("There was a problem with the fetch operation:", error); // Remove this in production
         });
 }
 
@@ -54,9 +56,15 @@ function clearForm() {
         let field = form.elements[i];
         field.value = "";
     }
+    form = document.getElementById("del");
+    for (let i = 0; i < form.elements.length; i++) {
+        let field = form.elements[i];
+        field.value = "";
+    }
+    const selectedReminder = document.getElementById("selected");
+    selectedReminder.textContent = "Selected Reminder: None";
 }
 
-// Load Form
 const addFormElement = document.getElementById("remindersAdd");
 addFormElement.innerHTML = `<form id="create"><label for="name">Name:</label><input type="text" id="name" required><br><br><label for="date">Date:</label><input type="date" id="date" required><br><br><button type="submit">Submit</button></form>`;
 const delFormElement = document.getElementById("remindersDel");
@@ -64,13 +72,13 @@ delFormElement.innerHTML = `<form id="del"><label for="index">Select A Reminder 
 
 const form = document.getElementById("create");
 form.addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevents the form from submitting normally
+    event.preventDefault();
     let date = document.getElementById("date").value;
     let name = document.getElementById("name").value;
     date = formatDate(date);
     let reminder = `${name},${date}`;
 
-    fetch('/send', {
+    fetch('/update', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -80,7 +88,6 @@ form.addEventListener("submit", function(event) {
     .then(response => response.text())
     .then(result => {
         console.log(result); // Logging the response from Flask
-        alert("Working! " + result);
     })
     .catch(error => {
         console.error('Error:', error);
@@ -90,14 +97,34 @@ form.addEventListener("submit", function(event) {
 });
 
 const output = document.getElementById("selected");
-const del = document.getElementById('index');
-del.addEventListener('input', function(event) {
+const indexInput = document.getElementById('index'); // This is the INPUT FIELD, NOT THE FORM'S ID
+indexInput.addEventListener('input', function(event) {
     const value = event.target.value;
     const child = reminderArray[value - 1];
     output.textContent = `Selected Reminder: ${child}`;
     console.log('Field value changed to:', value);
-
-    // Now I just have to send a POST to tell Python to delete it from the .txt file
 });
 
-getReminders();
+const del = document.getElementById("del"); // Form's ID
+del.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const index = document.getElementById("index").value;
+    const indexData = { index: index }; // Create JSON structure
+    console.log(indexData);
+    fetch('/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(indexData),
+    })
+    .then(response => response.text())
+    .then(result => {
+        console.log(result); // Logging the response from Flask
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    clearForm();
+    getReminders();
+});
