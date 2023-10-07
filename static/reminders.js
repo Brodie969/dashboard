@@ -58,7 +58,22 @@ form.addEventListener("submit", function(event) {
     let name = document.getElementById("name").value;
     date = formatDate(date);
     let reminder = `${name},${date}`;
-    alert(`Working: ${reminder}`);
+
+    fetch('/send', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reminder),
+    })
+    .then(response => response.text())
+    .then(result => {
+        console.log(result); // Logging the response from Flask
+        alert("Working! " + result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 });
 
 getReminders();
