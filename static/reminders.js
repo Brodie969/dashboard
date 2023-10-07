@@ -1,16 +1,11 @@
-/* How reminders will work:
-Client uses a form to submit a date and title (for example 1/1/2000 and "New Millennium")
-Javascript formats that properly then sends a POST
-Python can take that raw data and place it in the file, in chronological order
-
-There will also be a delete button next to every reminder/countdown to be handled by Javscript */
-
 const formHead = document.getElementById("remindersTitle");
 formHead.textContent = "Add A Reminder:";
 const formHead2 = document.getElementById("remindersTitle2");
 formHead2.textContent = "Select A Reminder To Delete:";
 const head = document.getElementById("remindersStatic");
 head.innerHTML = "Reminders:";
+
+const reminderArray = [];
 
 function getReminders() {
     fetch("/data")
@@ -24,14 +19,17 @@ function getReminders() {
             const lines = text.split("\n");
             const parent = document.getElementById("reminders");
             parent.innerHTML = "";
+            reminderArray.length = 0; // Clear Array
 
             lines.forEach(line => {
                 const [title, date] = line.split(",");
-                console.log(`Title: ${title.trim()}, Date: ${date.trim()}`);
 
                 const div = document.createElement("div");
-                div.textContent = `${title.trim()} on ${date.trim()}`;
+                const reminder = `${title.trim()} on ${date.trim()}`;
+                div.textContent = reminder;
                 parent.appendChild(div);
+
+                reminderArray.push(reminder);
             });
         })
         .catch(error => {
@@ -59,8 +57,10 @@ function clearForm() {
 }
 
 // Load Form
-const formElement = document.getElementById("remindersAdd");
-formElement.innerHTML = `<form id="create"><label for="name">Name:</label><input type="text" id="name" required><br><br><label for="date">Date:</label><input type="date" id="date" required><br><br><button type="submit">Submit</button></form>`;
+const addFormElement = document.getElementById("remindersAdd");
+addFormElement.innerHTML = `<form id="create"><label for="name">Name:</label><input type="text" id="name" required><br><br><label for="date">Date:</label><input type="date" id="date" required><br><br><button type="submit">Submit</button></form>`;
+const delFormElement = document.getElementById("remindersDel");
+delFormElement.innerHTML = `<form id="del"><label for="index">Select A Reminder To Delete:</label><input type="number" id="index" name="index" min="1" max="100"><p id="selected">Selected Reminder: None</p><button type="submit">Delete</button></form>`
 
 const form = document.getElementById("create");
 form.addEventListener("submit", function(event) {
@@ -87,6 +87,15 @@ form.addEventListener("submit", function(event) {
     });
     getReminders();
     clearForm();
+});
+
+const output = document.getElementById("selected");
+const del = document.getElementById('index');
+del.addEventListener('input', function(event) {
+    const value = event.target.value;
+    const child = reminderArray[value - 1];
+    output.textContent = `Selected Reminder: ${child}`;
+    console.log('Field value changed to:', value);
 });
 
 getReminders();
