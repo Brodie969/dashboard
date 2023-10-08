@@ -1,5 +1,25 @@
-# dashboard
+# brodie969/dashboard
 
-An IOT dashboard to display all the essential information.
+This project is a Flask-based IOT Dashboard designed to run on a Raspberry Pi, or any PC that runs 24/7. It provides real-time weather information and features a simple to-do list/reminder system. As the project evolves, it aims to become a versatile dashboard for various useful functionalities.
 
-It will use Python's Flask to handle GET and POST requests.
+## How To Run Locally
+
+1. Clone this repository:
+
+```bash
+git clone https://github.com/brodie969/dashboard
+```
+
+2. Install Flask
+
+```bash
+pip install Flask
+```
+
+3. Run Flask App
+
+```bash
+python main.py
+```
+
+4. Access The Site From Any Device On The Same Network At `http://192.168.1.XXX:8000` (Host's IP)
