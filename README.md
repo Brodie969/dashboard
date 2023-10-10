@@ -34,3 +34,9 @@ python main.py
 ```
 
 5. Access The Site From Any Device On The Same Network At `http://192.168.1.XXX:8000` (Host's IP)
+
+## Plans:
+
+- Stock Prices (May Have To Be Serve Side Rendered)
+
+- File/Directory Sync
