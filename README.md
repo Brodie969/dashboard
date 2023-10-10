@@ -16,10 +16,21 @@ git clone https://github.com/brodie969/dashboard
 pip install Flask
 ```
 
-3. Run Flask App
+3. Create A File Called `config.js`
+
+Enter your [weatherapi.com API Key](https://www.weatherapi.com/) and your nearest major city into `config.js`:
+
+```Javascript
+export const data = {
+    key: "1234567890",
+    location: "Brisbane",
+};
+```
+
+4. Run Flask App
 
 ```bash
 python main.py
 ```
 
-4. Access The Site From Any Device On The Same Network At `http://192.168.1.XXX:8000` (Host's IP)
+5. Access The Site From Any Device On The Same Network At `http://192.168.1.XXX:8000` (Host's IP)
