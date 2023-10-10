@@ -1,3 +1,9 @@
+# API Key And Location Info
+config.js
+
+# For My Teacher
+explanation.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -5,12 +11,6 @@ __pycache__/
 
 # C extensions
 *.so
-
-# API Key And Location Info
-config.js
-
-# For My Teacher
-explanation.md
 
 # Distribution / packaging
 .Python
