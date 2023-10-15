@@ -6,8 +6,12 @@ def index():
     return render_template("home.html")
 
 @app.route("/data")
-def fetch():
+def data():
     return send_from_directory("data", "reminders.txt")
+
+@app.route("/sync")
+def sync():
+    return render_template("file.html")
 
 @app.route("/update", methods=["POST"])
 def update():
