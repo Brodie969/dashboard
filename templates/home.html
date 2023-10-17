@@ -4,16 +4,22 @@
         <meta charset="UTF-8">
         <title>Weather</title>
         <link rel="stylesheet" type="text/css" href="/static/styles.css">
-        <link id="favi" rel="icon" type="image/x-icon" href="">
+        <!-- <link rel="icon" type="image/x-icon" href="{{ favicon }}"> -->
     </head>
     <body>
-        <noscript>Please Enable Javascript For Site Functionality</noscript>
-        <div id="weatherStatic">
-            <h1>Welcome</h1>
-            <h2 id="weatherTitle">Weather Is Loading</h2>
-            <img id="favicon">
+        <h1>Welcome</h1>
+        <h2>Weather For {{ city }}</h2>
+            <!-- <img src="{{ favicon }}" alt="Weather Icon"> -->
         </div>
         <div id="weather">
+            <p class="gridElement">{{ description }}</p>
+            <!-- <p class="gridElement">Temperature: {{ temp }}°C<br>Feels Like: {{ tempFeelsLike }}°C</p>
+            <p class="gridElement">Wind Speed: {{ wind }}kph<br>Direction: {{ windDir }}°<br>Gusts: {{ windGust }}kph</p>
+            <p class="gridElement">Precipitaion: {{ rain }}mm</p>
+            <p class="gridElement">Cloud Cover: {{ cloud }}%</p>
+            <p class="gridElement">Humidity: {{ humid }}%</p>
+            <p class="gridElement">Visibility: {{ vis }}km</p>
+            <p class="gridElement">UV Index: {{ uv }}</p> -->
         </div>
     </body>
 </html>
