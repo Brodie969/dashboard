@@ -1,14 +1,24 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 import requests
+import json
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    # access local JSON here
+    key = ""
+    city = request.args.get("city")
+    if not city:
+        return redirect(url_for("search"))
+    try:
+        with open("static/config.json", 'r') as file:
+            data = json.load(file)
+            key = data["key"]   
+    except FileNotFoundError:
+        print("File not found")
+    except json.JSONDecodeError:
+        print("Error decoding JSON data from the file.")
 
-    # Needs the key to test ^
     url = f"http://api.weatherapi.com/v1/current.json?key={key}&q={city}"
-
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -23,21 +33,36 @@ def index():
         city = location["name"]
         description = condition["text"]
         temp = current["temp_c"]
-        tempFeelsLike = current["feelslike_c"]
+        temp_feels_like = current["feelslike_c"]
         wind = current["wind_kph"]
-        windDir = current["wind_degree"]
-        windGust = current["gust_kph"]
+        wind_degree = current["wind_degree"]
+        wind_gust = current["gust_kph"]
         rain = current["precip_mm"]
         cloud = current["cloud"]
         humid = current["humidity"]
         vis = current["vis_km"]
         uv = current["uv"]
-        return render_template("home.html", description=description)
+        return render_template("home.html", favicon=favicon, 
+                                            city=city, 
+                                            description=description, 
+                                            temp=temp, 
+                                            tempFeelsLike=temp_feels_like, 
+                                            wind=wind, 
+                                            wind_degree=wind_degree, 
+                                            wind_gust=wind_gust, 
+                                            rain=rain, 
+                                            cloud=cloud, 
+                                            humid=humid, 
+                                            vis=vis, 
+                                            uv=uv)
 
     else:
         print("Error Fetching Weather Data")
         return render_template("error.html", code=response.status_code), 500
     
+@app.route("/search")
+def search():
+    return "Search Coming Soon"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)

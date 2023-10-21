@@ -4,22 +4,22 @@
         <meta charset="UTF-8">
         <title>Weather</title>
         <link rel="stylesheet" type="text/css" href="/static/styles.css">
-        <!-- <link rel="icon" type="image/x-icon" href="{{ favicon }}"> -->
+        <link rel="icon" type="image/x-icon" href="{{ favicon }}">
     </head>
     <body>
         <h1>Welcome</h1>
         <h2>Weather For {{ city }}</h2>
-            <!-- <img src="{{ favicon }}" alt="Weather Icon"> -->
+            <img src="{{ favicon }}" alt="Weather Icon">
         </div>
         <div id="weather">
             <p class="gridElement">{{ description }}</p>
-            <!-- <p class="gridElement">Temperature: {{ temp }}°C<br>Feels Like: {{ tempFeelsLike }}°C</p>
-            <p class="gridElement">Wind Speed: {{ wind }}kph<br>Direction: {{ windDir }}°<br>Gusts: {{ windGust }}kph</p>
+            <p class="gridElement">Temperature: {{ temp }}°C<br>Feels Like: {{ temp_feels_like }}°C</p>
+            <p class="gridElement">Wind Speed: {{ wind }}kph<br>Direction: {{ wind_degree }}°<br>Gusts: {{ wind_gust }}kph</p>
             <p class="gridElement">Precipitaion: {{ rain }}mm</p>
             <p class="gridElement">Cloud Cover: {{ cloud }}%</p>
             <p class="gridElement">Humidity: {{ humid }}%</p>
             <p class="gridElement">Visibility: {{ vis }}km</p>
-            <p class="gridElement">UV Index: {{ uv }}</p> -->
+            <p class="gridElement">UV Index: {{ uv }}</p>
         </div>
     </body>
 </html>
