@@ -20,8 +20,10 @@ def weather():
             data = json.load(file)
             key = data["key"]   
     except FileNotFoundError:
+        return render_template("error.html", error="<pre><code>config.json</code></pre> Was Not Found", code=response.status_code), 500
         print("File not found")
     except json.JSONDecodeError:
+        return render_template("error.html", error="Error Decoding <pre><code>config.json</code></pre>", code=response.status_code), 500
         print("Error decoding JSON data from the file.")
 
     url = f"http://api.weatherapi.com/v1/current.json?key={key}&q={city}"
@@ -64,7 +66,7 @@ def weather():
 
     else:
         print("Error Fetching Weather Data")
-        return render_template("error.html", code=response.status_code), 500
+        return render_template("error.html", error="Error Fetching Weather Data", code=response.status_code), 500
     
 @app.route("/search")
 def search():
@@ -77,8 +79,10 @@ def search():
             data = json.load(file)
             key = data["key"]   
     except FileNotFoundError:
+        return render_template("error.html", error="<pre><code>config.json</code></pre> Was Not Found", code=response.status_code), 500
         print("File not found")
     except json.JSONDecodeError:
+        return render_template("error.html", error="Error Decoding <pre><code>config.json</code></pre>", code=response.status_code), 500
         print("Error decoding JSON data from the file.")
 
     url = f"http://api.weatherapi.com/v1/search.json?key={key}&q={query}"
@@ -103,7 +107,7 @@ def search():
 
     else:
         print("Error Fetching Search Data")
-        return render_template("error.html", code=response.status_code), 500
+        return render_template("error.html", error="An Error Occured", code=response.status_code), 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
