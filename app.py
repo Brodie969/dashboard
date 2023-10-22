@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template(search.html)
+    return render_template("search.html")
 
 @app.route("/weather")
 def weather():
@@ -87,51 +87,19 @@ def search():
     if response.status_code == 200:
         search_data = response.json()
 
-        results_number = 0
-        
-        # Nest this somehow with return statements
-        one = search_data["0"]
-        if one:
-            city_one = one["name"]
-            region_one = one["region"]
-            country_one = one["country"]
-            url_one = one["url"]
-            results_number += 1
+        cities = []
+        regions = []
+        countries = []
+        urls = []
 
-        two = search_data["1"]
-        if two:
-            city_two = two["name"]
-            region_two = two["region"]
-            country_two = two["country"]
-            url_two = two["url"]
-            results_number += 1
+        for i in range(len(search_data)):
+            current_result = search_data[i]
+            cities.append(current_result["name"])
+            regions.append(current_result["region"])
+            countries.append(current_result["country"])
+            urls.append(current_result["url"])
 
-        three = search_data["2"]
-        if three:
-            city_three = three["name"]
-            region_three = three["region"]
-            country_three = three["country"]
-            url_three = three["url"]
-            url_three = three["url"]
-            results_number += 1
-
-        four = search_data["3"]
-        if four:
-            city_four = four["name"]
-            region_four = four["region"]
-            country_four = four["country"]
-            url_four = four["url"]
-            results_number += 1
-
-        five = search_data["4"]
-        if five:
-            city_five = five["name"]
-            region_five = five["region"]
-            country_five = five["country"]
-            url_five = five["url"]
-            results_number += 1
-        
-        return render_template()
+        return f"{cities}<br>{regions}<br>{countries}<br>{urls}"
 
     else:
         print("Error Fetching Search Data")
