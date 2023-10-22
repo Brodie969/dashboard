@@ -103,7 +103,110 @@ def search():
             countries.append(current_result["country"])
             urls.append(current_result["url"])
 
-        return f"{cities}<br>{regions}<br>{countries}<br>{urls}"
+        # Make All Variables Blank
+        result1 = ""
+        result1URL = ""
+        text1 = ""
+        result2 = ""
+        result2URL = ""
+        text2 = ""
+        result3 = ""
+        result3URL = ""
+        text3 = ""
+        result4 = ""
+        result4URL = ""
+        text4 = ""
+        result5 = ""
+        result5URL = ""
+        text5 = ""
+
+        if len(search_data) >= 1:
+            result1 = f"{cities[0]}, {regions[0]}, {countries[0]}"
+            result1URL = f"/weather?city={urls[0]}"
+            text1 = f"View Weather For {cities[0]}, {regions[0]}"
+            if len(search_data) >= 2:
+                result2 = f"{cities[1]}, {regions[1]}, {countries[1]}"
+                result2URL = f"/weather?city={urls[1]}"
+                text2 = f"View Weather For {cities[1]}, {regions[1]}"
+                if len(search_data) >= 3:
+                    result3 = f"{cities[2]}, {regions[2]}, {countries[2]}"
+                    result3URL = f"/weather?city={urls[2]}"
+                    text3 = f"View Weather For {cities[2]}, {regions[2]}"
+                    if len(search_data) >= 4:
+                        result4 = f"{cities[3]}, {regions[3]}, {countries[3]}"
+                        result4URL = f"/weather?city={urls[3]}"
+                        text4 = f"View Weather For {cities[3]}, {regions[3]}"
+                        if len(search_data) >= 5:
+                            result5 = f"{cities[4]}, {regions[4]}, {countries[4]}"
+                            result5URL = f"/weather?city={urls[4]}"
+                            text5 = f"View Weather For {cities[4]}, {regions[4]}"
+                            return render_template("results.html", result1=result1, 
+                                                                result1URL=result1URL,
+                                                                text1=text1,
+                                                                result2=result2, 
+                                                                result2URL=result2URL, 
+                                                                text2=text2, 
+                                                                result3=result3, 
+                                                                result3URL=result3URL, 
+                                                                text3=text3, 
+                                                                result4=result4, 
+                                                                result4URL=result4URL, 
+                                                                text4=text4, 
+                                                                result5=result5, 
+                                                                result5URL=result5URL, 
+                                                                text5=text5)
+                    else:
+                        return render_template("results.html", result1=result1, 
+                                                            result1URL=result1URL,
+                                                            text1=text1,
+                                                            result2=result2, 
+                                                            result2URL=result2URL, 
+                                                            text2=text2, 
+                                                            result3=result3, 
+                                                            result3URL=result3URL, 
+                                                            text3=text3, 
+                                                            result4=result4, 
+                                                            result4URL=result4URL, 
+                                                            text4=text4, 
+                                                            result5=result5, 
+                                                            result5URL=result5URL, 
+                                                            text5=text5)
+                else:
+                    return render_template("results.html", result1=result1, 
+                                                        result1URL=result1URL,
+                                                        text1=text1,
+                                                        result2=result2, 
+                                                        result2URL=result2URL, 
+                                                        text2=text2, 
+                                                        result3=result3, 
+                                                        result3URL=result3URL, 
+                                                        text3=text3, 
+                                                        result4=result4, 
+                                                        result4URL=result4URL, 
+                                                        text4=text4, 
+                                                        result5=result5, 
+                                                        result5URL=result5URL, 
+                                                        text5=text5)
+            else:
+                return render_template("results.html", result1=result1, 
+                                                    result1URL=result1URL,
+                                                    text1=text1,
+                                                    result2=result2, 
+                                                    result2URL=result2URL, 
+                                                    text2=text2, 
+                                                    result3=result3, 
+                                                    result3URL=result3URL, 
+                                                    text3=text3, 
+                                                    result4=result4, 
+                                                    result4URL=result4URL, 
+                                                    text4=text4, 
+                                                    result5=result5, 
+                                                    result5URL=result5URL, 
+                                                    text5=text5)
+        else:
+            return render_template("error.html", error="No Search Results Found", code=404), 404
+
+        return render_template("results.html", results=html)
 
     else:
         print("Error Fetching Search Data")
