@@ -3,8 +3,6 @@ import requests
 import json
 app = Flask(__name__)
 
-# Add return error.html in place of print statements
-
 @app.route("/")
 def index():
     return render_template("search.html")
