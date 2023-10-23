@@ -18,7 +18,7 @@ pip install Flask
 
 3. Create A File Called `config.js`
 
-Enter your [weatherapi.com API Key](https://www.weatherapi.com/) and your nearest major city into `config.json`:
+Enter your [weatherapi.com API Key](https://www.weatherapi.com/) into `config.json`:
 
 ```JSON
 {
@@ -29,7 +29,7 @@ Enter your [weatherapi.com API Key](https://www.weatherapi.com/) and your neares
 4. Run Flask App
 
 ```bash
-python main.py
+python app.py
 ```
 
-5. Access The Site From Any Device On The Same Network At `http://192.168.1.XXX:8000` (Host's IP)
+5. Access The Site At `http://127.0.0.1:5000`
