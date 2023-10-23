@@ -211,4 +211,4 @@ def search():
         return render_template("error.html", error="An Error Occured In The API", code=response.status_code), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run()
